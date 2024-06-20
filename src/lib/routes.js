@@ -1,5 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
-
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import Login from "components/auth/Login";
 import Register from "components/auth/Register";
 import Layout from "components/layout";
@@ -7,6 +6,7 @@ import Dashboard from "components/dashboard";
 import Comments from "components/comments";
 import Profile from "components/profile";
 import Users from "components/users";
+import config from "./config.json";  
 
 export const ROOT = "/";
 export const LOGIN = "/login";
@@ -14,12 +14,14 @@ export const REGISTER = "/register";
 
 export const PROTECTED = "/protected";
 export const DASHBOARD = "/protected/dashboard";
-export const USERS = "/protected/users";
+export const USERS = "/protecgit push -u origin mainted/users";
 export const PROFILE = "/protected/profile/:id";
 export const COMMENTS = "/protected/comments/:id";
 
+const initialRoute = config.initialRoute || LOGIN;
+
 export const router = createBrowserRouter([
-  { path: ROOT, element: "Public Root" },
+  { path: ROOT, element: <Navigate to={initialRoute} /> },
   { path: LOGIN, element: <Login /> },
   { path: REGISTER, element: <Register /> },
   {
@@ -45,3 +47,12 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
+
+function App() {
+  return (
+    <RouterProvider router={router} />
+  );
+}
+
+export default App;
+
